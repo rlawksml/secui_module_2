@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vampire Survivors-like Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+            background: #000;
+        }
+
+        #game-canvas {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #hud {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-size: 16px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            pointer-events: none;
+        }
+
+        .health-bar, .exp-bar {
+            width: 300px;
+            height: 24px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid #fff;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .health-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff0000, #cc0000);
+            transition: width 0.3s ease;
+        }
+
+        .exp-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #0066ff, #0044cc);
+            transition: width 0.3s ease;
+        }
+
+        .stat-text {
+            margin: 5px 0;
+        }
+
+        #game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 40px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        #game-over h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #ff0000;
+        }
+
+        #game-over button {
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 18px;
+            background: #0066ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        #game-over button:hover {
+            background: #0044cc;
+        }
+
+        #level-up {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 72px;
+            color: #ffff00;
+            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8);
+            display: none;
+            animation: pulse 0.5s ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
+        }
+    </style>
+</head>
+<body>
+    <div id="hud">
+        <div class="health-bar">
+            <div class="health-fill" id="health-fill" style="width: 100%"></div>
+        </div>
+        <div class="stat-text">HP: <span id="hp-text">100/100</span></div>
+
+        <div class="exp-bar">
+            <div class="exp-fill" id="exp-fill" style="width: 0%"></div>
+        </div>
+        <div class="stat-text">Level: <span id="level-text">1</span> | EXP: <span id="exp-text">0/10</span></div>
+
+        <div class="stat-text">Time: <span id="time-text">00:00</span></div>
+        <div class="stat-text">Kills: <span id="kills-text">0</span></div>
+    </div>
+
+    <div id="level-up">LEVEL UP!</div>
+
+    <div id="game-over">
+        <h1>GAME OVER</h1>
+        <p>Survival Time: <span id="final-time">00:00</span></p>
+        <p>Final Level: <span id="final-level">1</span></p>
+        <p>Total Kills: <span id="final-kills">0</span></p>
+        <button id="restart-btn">Restart</button>
+    </div>
+
+    <script type="module" src="/src/index.js"></script>
+</body>
+</html>
